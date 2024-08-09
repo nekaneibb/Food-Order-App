@@ -22,7 +22,7 @@ export default function Header({ cartMeals, onRemoveMeal }) {
       </div>
       <nav>
         <Button textOnly onClick={handleOpenModal} >
-          Cart {cartMeals.length}
+          Cart ({cartMeals.length})
         </Button>
         <Modal cartMeals={cartMeals} open={modalIsOpen} onClose={handleCloseCart} onRemoveMeal={onRemoveMeal}/>
       </nav>
