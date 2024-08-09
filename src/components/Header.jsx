@@ -6,12 +6,20 @@ import { useState } from "react";
 export default function Header({ cartMeals, onRemoveMeal }) {
   const [modalIsOpen, setModalIsOpen] = useState(false);
 
+  function cartQuantity() {
+    const totalCartQuantity = cartMeals.reduce((accumulator, meal) => {
+      return accumulator + meal.quantity;
+    }, 0);
+
+    return totalCartQuantity;
+  }
+
   function handleOpenModal() {
     setModalIsOpen(true);
   }
 
-  function handleCloseCart(){
-    setModalIsOpen(false)
+  function handleCloseCart() {
+    setModalIsOpen(false);
   }
 
   return (
@@ -21,10 +29,15 @@ export default function Header({ cartMeals, onRemoveMeal }) {
         <h1>Food Cart</h1>
       </div>
       <nav>
-        <Button textOnly onClick={handleOpenModal} >
-          Cart {cartMeals.length}
+        <Button textOnly onClick={handleOpenModal}>
+          Cart ({cartQuantity()})
         </Button>
-        <Modal cartMeals={cartMeals} open={modalIsOpen} onClose={handleCloseCart} onRemoveMeal={onRemoveMeal}/>
+        <Modal
+          cartMeals={cartMeals}
+          open={modalIsOpen}
+          onClose={handleCloseCart}
+          onRemoveMeal={onRemoveMeal}
+        />
       </nav>
     </header>
   );

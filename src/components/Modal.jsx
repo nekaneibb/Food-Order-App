@@ -28,6 +28,7 @@ function Modal({ cartMeals, open, children, onClose, onRemoveMeal }) {
           {cartMeals.map((meal) => (
             <li key={meal.id} className="cart-item">
               <p>{meal.name}</p>
+              {meal.quantity ? <p>{meal.quantity}</p> : null}
               <p>{meal.price}</p>
               <button
                 className="cart-item-actions"
@@ -41,7 +42,9 @@ function Modal({ cartMeals, open, children, onClose, onRemoveMeal }) {
       ) : (
         "Your cart is empty"
       )}
-      <p className="cart-total"> Total: {cartTotalAmount()}</p>
+      {cartMeals.length > 0 ? (
+        <p className="cart-total"> Total: {cartTotalAmount()}</p>
+      ) : null}
       <p className="modal-actions">
         <button className=" button text-button">Place order</button>
         <button className="button text-button" onClick={onClose}>
