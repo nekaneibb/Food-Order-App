@@ -34,7 +34,6 @@ function App() {
     <>
       <Header cartMeals={cartMeals} onRemoveMeal={handleRemoveMeal} />
       <Meals meals={meals} onSelectMeal={handleAddMeal} />
-      <p>Don't worry - we've all been there. Let's build it together!</p>
     </>
   );
 }

@@ -52,7 +52,7 @@ function Modal({ cartMeals, open, children, onClose, onRemoveMeal }) {
         </button>
       </p>
     </dialog>,
-    document.getElementById("modal")
+    document.getElementById("cart-modal")
   );
 }
 export default Modal;
