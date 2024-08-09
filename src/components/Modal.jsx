@@ -27,12 +27,12 @@ function Modal({ cartMeals, open, children, onClose, onRemoveMeal }) {
         <ul>
           {cartMeals.map((meal) => (
             <li key={meal.id} className="cart-item">
-              <p>{meal.name}</p>
               {meal.quantity ? <p>{meal.quantity}</p> : null}
+              <p>{meal.name}</p>
               <p>{meal.price}</p>
               <button
                 className="cart-item-actions"
-                onClick={() => onRemoveMeal(meal.id)}
+                onClick={() => onRemoveMeal(meal)}
               >
                 X
               </button>

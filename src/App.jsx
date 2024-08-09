@@ -3,27 +3,7 @@ import Meals from "./components/Meals";
 import { useEffect, useState } from "react";
 import { fetchAvailableMeals } from "../src/https.js";
 import { CartContextProvider } from "./store/CarContext";
-
-function existingCartItem(meal, addedMeals) {
-  const existingCartItemIndex = addedMeals.findIndex(
-    (item) => item.id === meal.id
-  );
-  const updatedItems = [...addedMeals];
-
-  if (existingCartItemIndex > -1) {
-    const existingItem = updatedItems[existingCartItemIndex];
-
-    const updatedItem = {
-      ...existingItem,
-      quantity: (existingItem.quantity || 0) + 1,
-    };
-    updatedItems[existingCartItemIndex] = updatedItem;
-  } else {
-    updatedItems.push({ ...meal, quantity: 1 });
-  }
-
-  return updatedItems;
-}
+import { existingCartItem, removeCartItem } from "./utils/ItemQuantity.js";
 
 function App() {
   const [meals, setAvailableMeals] = useState([]);
@@ -34,10 +14,8 @@ function App() {
     setCartMeals((prevMeals) => existingCartItem(meal, prevMeals));
   }
 
-  function handleRemoveMeal(mealId) {
-    setCartMeals((prevMeals) =>
-      prevMeals.filter((meal) => meal.id !== mealId)
-    );
+  function handleRemoveMeal(meal) {
+    setCartMeals((prevMeals) => removeCartItem(meal, prevMeals));
   }
 
   useEffect(() => {
