@@ -2,6 +2,7 @@ import Header from "./components/Header";
 import Meals from "./components/Meals";
 import { useEffect, useState } from "react";
 import { fetchAvailableMeals } from "../src/https.js";
+import { CartContextProvider } from './store/CarContext'
 
 function App() {
   const [meals, setAvailableMeals] = useState([]);
