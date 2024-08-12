@@ -16,15 +16,12 @@ export default function Cart({ cartMeals, onRemoveMeal, onAddMeal }) {
   }
 
   function handleShowCheckout() {
-    console.log("handleShowCheckout called");
     userProgressCtx.showCheckout();
-    console.log("Progress after handleShowCheckout:", userProgressCtx.progress);
   }
 
   function handleHideCart() {
     userProgressCtx.hideCart();
   }
-  console.log("APP Progress:", userProgressCtx.progress);
 
   return (
     <Modal className="cart" open={userProgressCtx.progress === "cart"}>
@@ -60,7 +57,7 @@ export default function Cart({ cartMeals, onRemoveMeal, onAddMeal }) {
           Close
         </Button>
         {cartMeals.length > 0 && (
-          <button className='button' textOnly onClick={handleShowCheckout}>
+          <button className="button" onClick={handleShowCheckout}>
             Place order
           </button>
         )}

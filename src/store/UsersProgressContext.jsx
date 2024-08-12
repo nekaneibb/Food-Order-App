@@ -30,10 +30,10 @@ export function UserProgressContextProvider({ children }) {
     hideCheckout,
   };
 
-  console.log('Current Progress State:', useProgress); 
-
   return (
-    <UserProgressContext.Provider value={userProgressCtx}>{children}</UserProgressContext.Provider>
+    <UserProgressContext.Provider value={userProgressCtx}>
+      {children}
+    </UserProgressContext.Provider>
   );
 }
 

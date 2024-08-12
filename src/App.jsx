@@ -50,8 +50,7 @@ function App() {
         onAddMeal={handleAddMeal}
       />
 
-      {/* {userProgressCtx.progress === "checkout" && (
-      )} */}
+
         <Checkout cartMeals={cartMeals} />
     </UserProgressContextProvider>
   );

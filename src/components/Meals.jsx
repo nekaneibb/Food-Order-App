@@ -4,7 +4,6 @@ import Button from "./UI/Button";
 export default function Meals({ meals, onSelectMeal }) {
   return (
     <div>
-      <h2>Available Meals</h2>
       {meals.length > 0 && (
         <ul id="meals">
           {meals.map((meal) => (
