@@ -1,10 +1,12 @@
 import logo from "../assets/logo.jpg";
+import UserProgressContext from "../store/UsersProgressContext";
+import Cart from "./Cart";
 import Modal from "./Modal";
 import Button from "./UI/Button";
-import { useState } from "react";
+import { useState, useContext } from "react";
 
-export default function Header({ cartMeals, onRemoveMeal }) {
-  const [modalIsOpen, setModalIsOpen] = useState(false);
+export default function Header({ cartMeals, onRemoveMeal, onAddMeal }) {
+  const userProgressCtx = useContext(UserProgressContext);
 
   function cartQuantity() {
     const totalCartQuantity = cartMeals.reduce((accumulator, meal) => {
@@ -14,12 +16,8 @@ export default function Header({ cartMeals, onRemoveMeal }) {
     return totalCartQuantity;
   }
 
-  function handleOpenModal() {
-    setModalIsOpen(true);
-  }
-
-  function handleCloseCart() {
-    setModalIsOpen(false);
+  function handleShowCart() {
+    userProgressCtx.showCart();
   }
 
   return (
@@ -29,15 +27,9 @@ export default function Header({ cartMeals, onRemoveMeal }) {
         <h1>Food Cart</h1>
       </div>
       <nav>
-        <Button textOnly onClick={handleOpenModal}>
+        <Button textOnly onClick={handleShowCart}>
           Cart ({cartQuantity()})
         </Button>
-        <Modal
-          cartMeals={cartMeals}
-          open={modalIsOpen}
-          onClose={handleCloseCart}
-          onRemoveMeal={onRemoveMeal}
-        />
       </nav>
     </header>
   );

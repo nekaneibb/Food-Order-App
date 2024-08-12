@@ -1,7 +1,7 @@
 import { useRef, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-function Modal({ cartMeals, open, children, onClose, onRemoveMeal }) {
+function Modal({ open, children, className = '' }) {
   const dialog = useRef();
 
   useEffect(() => {
@@ -12,47 +12,11 @@ function Modal({ cartMeals, open, children, onClose, onRemoveMeal }) {
     }
   }, [open]);
 
-  function cartTotalAmount() {
-    const totalCart = cartMeals.reduce((accumulator, meal) => {
-      return accumulator + parseFloat(meal.price);
-    }, 0);
-
-    return totalCart.toFixed(2);
-  }
-
   return createPortal(
-    <dialog ref={dialog} className="cart">
-      <h2> This is your cart</h2>
-      {cartMeals.length > 0 ? (
-        <ul>
-          {cartMeals.map((meal) => (
-            <li key={meal.id} className="cart-item">
-              {meal.quantity ? <p>{meal.quantity}</p> : null}
-              <p>{meal.name}</p>
-              <p>{meal.price}</p>
-              <button
-                className="cart-item-actions"
-                onClick={() => onRemoveMeal(meal)}
-              >
-                X
-              </button>
-            </li>
-          ))}
-        </ul>
-      ) : (
-        "Your cart is empty"
-      )}
-      {cartMeals.length > 0 ? (
-        <p className="cart-total"> Total: {cartTotalAmount()}</p>
-      ) : null}
-      <p className="modal-actions">
-        <button className=" button text-button">Place order</button>
-        <button className="button text-button" onClick={onClose}>
-          Close
-        </button>
-      </p>
+    <dialog ref={dialog} className={`modal ${className}`}>
+      {children}
     </dialog>,
-    document.getElementById("cart-modal")
+    document.getElementById("modal")
   );
 }
 export default Modal;

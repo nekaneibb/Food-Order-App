@@ -1,14 +1,20 @@
 import Header from "./components/Header";
 import Meals from "./components/Meals";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import { fetchAvailableMeals } from "../src/https.js";
 import { CartContextProvider } from "./store/CarContext";
 import { existingCartItem, removeCartItem } from "./utils/ItemQuantity.js";
+import { UserProgressContextProvider } from "./store/UsersProgressContext";
+import UserProgressContext from "./store/UsersProgressContext";
+import Checkout from "./components/Checkout";
+import Cart from "./components/Cart";
 
 function App() {
   const [meals, setAvailableMeals] = useState([]);
   const [error, setError] = useState("");
   const [cartMeals, setCartMeals] = useState([]);
+
+  const userProgressCtx = useContext(UserProgressContext);
 
   function handleAddMeal(meal) {
     setCartMeals((prevMeals) => existingCartItem(meal, prevMeals));
@@ -31,10 +37,23 @@ function App() {
   }, []);
 
   return (
-    <>
-      <Header cartMeals={cartMeals} onRemoveMeal={handleRemoveMeal} />
+    <UserProgressContextProvider>
+      <Header
+        cartMeals={cartMeals}
+        onRemoveMeal={handleRemoveMeal}
+        onAddMeal={handleAddMeal}
+      />
       <Meals meals={meals} onSelectMeal={handleAddMeal} />
-    </>
+      <Cart
+        cartMeals={cartMeals}
+        onRemoveMeal={handleRemoveMeal}
+        onAddMeal={handleAddMeal}
+      />
+
+      {/* {userProgressCtx.progress === "checkout" && (
+      )} */}
+        <Checkout cartMeals={cartMeals} />
+    </UserProgressContextProvider>
   );
 }
 
